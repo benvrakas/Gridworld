@@ -9,7 +9,7 @@ public class Mover {
 	private Actor me;
 	private int steps;
 
-	private final int view = 1000;
+	private final int view = 15;
 
 	public Mover(Actor me, int steps) {
 		this.me = me;
@@ -17,27 +17,21 @@ public class Mover {
 	}
 
 	public Location trackEnemy(int i) {
-		return trackEntity(getClosest(see('n')),i);
-		
+		return trackLoc(getClosest(see('n')), i);
+
 	}
 
 	public Location trackTeam(int i) {
-		return trackEntity(getClosest(see('g')),i);
+		return trackLoc(getClosest(see('g')), i);
 	}
 
-	/*public Location VectorEnemy(int i) {
-
+	public Location vectorEnemy(int i) {
+		return trackLoc(vectorAvg(see('n')), i);
 	}
 
-	public Location VectorTeam(int i) {
-
+	public Location vectorTeam(int i) {
+		return trackLoc(vectorAvg(see('n')), i);
 	}
-
-	public Location Escape();
-
-	{
-
-	}*/
 
 	public double getDistTo(Location loc) {
 		int x = loc.getCol();
@@ -47,7 +41,7 @@ public class Mover {
 		return Math.sqrt((y - myY) * (y - myY) + (x - myX) * (x - myX));
 	}
 
-	public Location trackEntity(Location ent, int dir) {
+	public Location trackLoc(Location ent, int dir) {
 		Location meLoc = me.getLocation();
 		for (int moves = steps; moves > 0; moves--) {
 			meLoc = me.getLocation().getAdjacentLocation(meLoc.getDirectionToward(ent) + dir);
@@ -84,7 +78,7 @@ public class Mover {
 				}
 			}
 		}
-		if (inVeiw.size() <= 1)
+		if (inVeiw.size() == 0)
 			return null;
 		return inVeiw;
 	}
@@ -100,8 +94,16 @@ public class Mover {
 		return closest;
 	}
 
-	public Location threatVector()
-	{
-		return new Location(2,2);
+	public Location vectorAvg(ArrayList<Location> locs) {
+		double i = 0;
+		double r = 0;
+		double c = 0;
+		for (Location loc : locs) {
+			double threat = view - getDistTo(loc);
+			r += threat * loc.getRow();
+			c += threat * loc.getCol();
+			i += threat;
+		}
+		return new Location((int)(Math.round(r / i)), (int)Math.round(c / i));
 	}
 }

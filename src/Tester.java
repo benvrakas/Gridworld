@@ -14,10 +14,11 @@ public class Tester
 		ActorWorld world = new ActorWorld();
 		Grid<Actor> grid = new BoundedGrid<Actor>(50, 50);
 		world.setGrid(grid);
-		world.add(new Location(25,25), new KnightBugGeek());
-		world.add(new Location(29,29), new Rock());
+		world.add(new Location(20,20), new KnightBugGeek());
+		world.add(new Location(25,25), new Rock());
+		world.add(new Location(20,30), new Rock());
+		world.add(new Location(19,20), new Rock());
 		
-	/*	world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
 		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
 		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
 		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
@@ -50,7 +51,8 @@ public class Tester
 		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
 		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
 		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
-		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());*/
+		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
+		world.add(new Location((int)(Math.random()*50),(int)(Math.random()*50)), new Critter());
 		world.show();
 	}
 }
